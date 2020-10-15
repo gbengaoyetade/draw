@@ -1,24 +1,33 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import Draw from './components/Draw';
+import DrawHeader from './components/DrawHeader';
+import Tools from './components/Tools';
+import VisualSettings from './components/VisualSettings';
+
+import './styles/App.scss';
+
 
 function App() {
+  
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <header className="app-header">
+      <button className="header-button">
+        <span><i class="fa fa-pencil" aria-hidden="true"></i></span>
+        <span>Draw</span>
+      </button>
+      <button className="header-button">
+        <span><i class="fa fa-bar-chart" aria-hidden="true"></i></span>
+        <span>Statistic</span>
+      </button>
+    </header>
+    <DrawHeader />
+    <section className="draw-wrapper">
+      <Tools />
+      <Draw />
+      <VisualSettings />
+    </section>
+     
     </div>
   );
 }
