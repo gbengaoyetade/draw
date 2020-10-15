@@ -1,9 +1,88 @@
+// #7c7676
+// #c4c4c4
+* {
+  box-sizing: border-box;
+}
+
+
 body {
-  background: #eee;
+  padding: 0;
+  margin: 0;
+  color: #eee;
+  font-size: 1rem;
 }
 
 .canvas {
   width: 400px;
   height: 400px;
   border: 1px solid black;
+
+}
+
+.app-header {
+  height: 80px;
+  width: 100%;
+  padding: 10px;
+  background: #544445;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.header-button {
+  background-color: transparent;
+  width: 80px;
+  height: 45px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  border: none;
+  cursor: pointer;
+  border-bottom: 1px solid #eee;
+  margin-right: 20px;
+  color: #eee;
+
+  i {
+   font-size: 1.3rem;
+  }
+}
+
+.draw-header {
+  height: 40px;
+  width: 100%;
+  background: #7c7676;
+  display: flex;
+  align-items: center;
+}
+
+.tools {
+  width: 40px;
+  height:88vh;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  background:#c4c4c4;
+}
+
+.tools-button {
+  background: transparent;
+  border: 1px solid #000;
+  height: 40px;
+  i {
+    font-size: 1.5rem;
+  }
+}
+
+.visual-settings {
+  width: 150px;
+  height:88vh;
+  background: #c4c4c4;
+  padding: 10px;
+  overflow: hidden;
+}
+
+.draw-wrapper {
+  display: flex;
+  justify-content: space-between;
 }
