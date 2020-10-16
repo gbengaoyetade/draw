@@ -39,13 +39,18 @@ body {
   align-items: center;
   border: none;
   cursor: pointer;
-  border-bottom: 1px solid #eee;
+  border-bottom: 1px solid #aaa;
   margin-right: 20px;
-  color: #eee;
+  color: #aaa;
 
   i {
    font-size: 1.3rem;
   }
+}
+
+.active-button {
+  color: #eee;
+  border-bottom: 1px solid #eee;
 }
 
 .draw-header {
@@ -54,10 +59,11 @@ body {
   background: #7c7676;
   display: flex;
   align-items: center;
+  padding-left: 3%;
 }
 
 .tools {
-  width: 40px;
+  width: 50px;
   height:88vh;
   overflow: hidden;
   display: flex;
@@ -68,21 +74,69 @@ body {
 .tools-button {
   background: transparent;
   border: 1px solid #000;
+  color: #999;
   height: 40px;
   i {
     font-size: 1.5rem;
   }
 }
 
+.active-tool {
+  color: #000;
+}
+
 .visual-settings {
-  width: 150px;
+  width: 250px;
   height:88vh;
   background: #c4c4c4;
-  padding: 10px;
+  padding: 20px;
   overflow: hidden;
+
 }
 
 .draw-wrapper {
   display: flex;
   justify-content: space-between;
+
+  .konvajs-content {
+    border: 1px solid #c4c4c4;
+  }
+}
+
+.app-slider {
+  width: 100px;
+  height: 10px;
+  background: #c4c4c4;
+  display: flex;
+  align-items: center;
+}
+
+.app-slider-thumb {
+  height: 15px;
+  width: 15px;
+  background-color: #544445;
+  color: #fff;
+  border-radius: 50%;
+  cursor: grab;
+  font-size: 0;
+}
+
+.app-slider-track {
+  background-color: #544445;
+  top: 0;
+  bottom: 0;
+}
+
+.opacity-form {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 70%;
+  margin-top: 10px;
+  color: #fff;
+
+  input{
+    width: 60px;
+    height: 30px;
+  }
 }
