@@ -16,13 +16,12 @@ const DrawHeader = () => {
   }
 
   const handleSliderChange = (value) => {
-    console.log({ value })
     dispatch({
       type: CHANGE_TOOL_SIZE,
       payload: value
     })
   }
-  console.log({ size: tool.size })
+
   return (
     <header className="draw-header">
     <label htmlFor="zoom">Image zoom: </label>
@@ -35,14 +34,15 @@ const DrawHeader = () => {
     </select>
     <label>Brush size: </label>
     <ReactSlider
-      className="horizontal-slider"
-      thumbClassName="example-thumb"
-      trackClassName="example-track"
+      thumbClassName="app-slider-thumb"
+      trackClassName="app-slider-track"
       onBeforeChange={val => console.log('onBeforeChange value:', val)}
       onChange={handleSliderChange}
       onAfterChange={val => console.log('onAfterChange value:', val)}
       renderThumb={(props, state) => <div {...props}>{tool.size}</div>}
+      className="app-slider"
     />
+    <span>{tool.size}px</span>
     </header>
   );
 };

@@ -41,7 +41,7 @@ export const canvasReducer = (state, action) => {
       return { ...state, color: action.payload }
     
     case CHANGE_CANVAS_OPACITY:
-      return { ...state, size: action.payload }
+      return { ...state, opacity: action.payload }
     
     case CHANGE_CANVAS_ZOOM:
       

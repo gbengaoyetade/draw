@@ -15,7 +15,7 @@ const Draw = () => {
   const handleDrawStart = (event) => {
     setIsTouchDown(true);
     const pos = event.target.getStage().getPointerPosition();
-    setLines([...lines, { tool: tool.type, points: [pos.x, pos.y] }]);
+    setLines([...lines, { tool: tool.type, points: [pos.x, pos.y], size: tool.size }]);
   }
 
   const handleDraw = (event) => {
@@ -29,6 +29,7 @@ const Draw = () => {
     lastLine.points = lastLine.points.concat([point.x, point.y]);
 
     lines.splice(lines.length - 1, 1, lastLine);
+    localStorage.setItem('currentDrawing', stage.toJSON())
     setLines(lines.concat());
   }
 
@@ -41,32 +42,35 @@ const Draw = () => {
       <DrawHeader />
       <section className="draw-wrapper">
         <Tools />
-        <Stage
-        width={(window.innerWidth - 190) * canvas.zoom}
-        height={(window.innerHeight - 120) * canvas.zoom}
-        onMouseDown={handleDrawStart}
-        onTouchStart={handleDrawStart}
-        onMouseMove={handleDraw}
-        onTouchMove={handleDraw}
-        onMouseUp={handleDrawEnd}
-        scaleY={canvas.zoom}
-        scaleX={canvas.zoom}
-        className='draw-area'
-        >
-        <Layer>
-          {lines.map((line, index) => (
-            <Line
-              key={index}
-              points={line.points}
-              stroke="#df4b26"
-              strokeWidth={tool.size/10}
-              globalCompositeOperation={
-                line.tool === 'eraser' ? 'destination-out' : 'source-over'
-              }
-            />
-          ))}
-        </Layer>
-        </Stage>
+        <section className="draw-area" style={{ background: canvas.color }}>
+          <Stage
+          width={(window.innerWidth - 300) * canvas.zoom}
+          height={(window.innerHeight - 120) * canvas.zoom}
+          onMouseDown={handleDrawStart}
+          onTouchStart={handleDrawStart}
+          onMouseMove={handleDraw}
+          onTouchMove={handleDraw}
+          onMouseUp={handleDrawEnd}
+          scaleY={canvas.zoom}
+          scaleX={canvas.zoom}
+          opacity={canvas.opacity/100}
+          >
+          <Layer>
+            {lines.map((line, index) => (
+              <Line
+                key={index}
+                points={line.points}
+                stroke="#000"
+                strokeWidth={line.size}
+                globalCompositeOperation={
+                  line.tool === 'eraser' ? 'destination-out' : 'source-over'
+                }
+              />
+            ))}
+          </Layer>
+          </Stage>
+          
+        </section>
         <VisualSettings />
       </section>
       
