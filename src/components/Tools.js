@@ -16,14 +16,14 @@ const Tools = () => {
   return (
   <section className="tools">
     <button
-      className={tool.type==='pen' ? 'tools-button active-tool': 'tools-button'}
+      className={tool.type==='source-over' ? 'tools-button active-tool': 'tools-button'}
       onClick={() =>handleClick('pen')}
     >
       <span><i className="fa fa-pencil" aria-hidden="true"></i></span>
     </button>
     <button
-      className={tool.type==='eraser' ? 'tools-button active-tool': 'tools-button'}
-      onClick={() =>handleClick('eraser')}
+      className={tool.type==='destination-out' ? 'tools-button active-tool': 'tools-button'}
+      onClick={() =>handleClick('destination-out')}
     >
       <span><i className="fa fa-eraser" aria-hidden="true"></i></span>
     </button>

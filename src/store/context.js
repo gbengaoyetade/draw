@@ -2,7 +2,7 @@ import React, { createContext, useReducer} from 'react';
 import { tabReducer, toolReducer, canvasReducer } from './reducers';
 
 const initialState = {
-  tool: { color: '#f00', size: 10, type: 'pen' },
+  tool: { color: '#f00', size: 10, type: 'source-over' },
   canvas: { color: '#fff', opacity: 100, zoom: 1 },
   tab: 'draw'
 }

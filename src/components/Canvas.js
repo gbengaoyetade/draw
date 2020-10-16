@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { Stage, Layer, Line, } from 'react-konva';
 import { AppContext } from '../store/context';
 import DrawHeader from './DrawHeader';
@@ -12,10 +12,22 @@ const Draw = () => {
   const [isTouchDown, setIsTouchDown] = useState(false)
   const [lines, setLines] = useState([]);
 
+  useEffect(() => {
+    const savedDrawings = JSON.parse(localStorage.getItem('currentDrawing'));
+
+    if (savedDrawings) {
+      const savedLines = savedDrawings.children[0].children;
+      setLines(savedLines)
+    }
+  
+  }, []);
+
   const handleDrawStart = (event) => {
     setIsTouchDown(true);
     const pos = event.target.getStage().getPointerPosition();
-    setLines([...lines, { tool: tool.type, points: [pos.x, pos.y], size: tool.size }]);
+
+    // This was structured based on how stage.JSON() structures it's value
+    setLines([...lines, { attrs: { globalCompositeOperation: tool.type, points: [pos.x, pos.y], strokeWidth: tool.size } }]);
   }
 
   const handleDraw = (event) => {
@@ -26,11 +38,17 @@ const Draw = () => {
     const point = stage.getPointerPosition();
     let lastLine = lines[lines.length - 1];
     
-    lastLine.points = lastLine.points.concat([point.x, point.y]);
+    lastLine.attrs.points = lastLine.attrs.points.concat([point.x, point.y]);
 
-    lines.splice(lines.length - 1, 1, lastLine);
-    localStorage.setItem('currentDrawing', stage.toJSON())
+    lines.splice(lines.length - 1, 1, lastLine);    
+    
     setLines(lines.concat());
+    localStorage.setItem('currentDrawing', stage.toJSON())
+  }
+
+  const undoDrawing = () =>{
+    const newLines = lines.slice(0, lines.length -1 )
+    setLines(newLines)
   }
 
   const handleDrawEnd = (event) => {
@@ -43,6 +61,7 @@ const Draw = () => {
       <section className="draw-wrapper">
         <Tools />
         <section className="draw-area" style={{ background: canvas.color }}>
+        <button onClick={undoDrawing}>undo</button>
           <Stage
           width={(window.innerWidth - 300) * canvas.zoom}
           height={(window.innerHeight - 120) * canvas.zoom}
@@ -59,12 +78,10 @@ const Draw = () => {
             {lines.map((line, index) => (
               <Line
                 key={index}
-                points={line.points}
+                points={line.attrs.points}
                 stroke="#000"
-                strokeWidth={line.size}
-                globalCompositeOperation={
-                  line.tool === 'eraser' ? 'destination-out' : 'source-over'
-                }
+                strokeWidth={line.attrs.strokeWidth}
+                globalCompositeOperation={ line.attrs.globalCompositeOperation }
               />
             ))}
           </Layer>
