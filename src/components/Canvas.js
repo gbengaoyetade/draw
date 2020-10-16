@@ -1,5 +1,6 @@
 import React, { useState, useContext, useEffect } from 'react';
 import { Stage, Layer, Line, } from 'react-konva';
+import { HotKeys } from "react-hotkeys";
 import { AppContext } from '../store/context';
 import DrawHeader from './DrawHeader';
 import Tools from './Tools';
@@ -46,52 +47,57 @@ const Draw = () => {
     localStorage.setItem('currentDrawing', stage.toJSON())
   }
 
-  const undoDrawing = () =>{
-    const newLines = lines.slice(0, lines.length -1 )
-    setLines(newLines)
+  const undoDrawing = () => {
+    lines.pop();
+    setLines([...lines]);
   }
 
   const handleDrawEnd = (event) => {
     setIsTouchDown(false);
   }
 
+  const handlers = { UNDO: undoDrawing }
+  const keyMap = { UNDO: 'command+z' }
+
   return (
-    <section>
-      <DrawHeader />
-      <section className="draw-wrapper">
-        <Tools />
-        <section className="draw-area" style={{ background: canvas.color }}>
-        <button onClick={undoDrawing}>undo</button>
-          <Stage
-          width={(window.innerWidth - 300) * canvas.zoom}
-          height={(window.innerHeight - 120) * canvas.zoom}
-          onMouseDown={handleDrawStart}
-          onTouchStart={handleDrawStart}
-          onMouseMove={handleDraw}
-          onTouchMove={handleDraw}
-          onMouseUp={handleDrawEnd}
-          scaleY={canvas.zoom}
-          scaleX={canvas.zoom}
-          opacity={canvas.opacity/100}
-          >
-          <Layer>
-            {lines.map((line, index) => (
-              <Line
-                key={index}
-                points={line.attrs.points}
-                stroke="#000"
-                strokeWidth={line.attrs.strokeWidth}
-                globalCompositeOperation={ line.attrs.globalCompositeOperation }
-              />
-            ))}
-          </Layer>
-          </Stage>
-          
+    <HotKeys keyMap={keyMap} handlers={handlers}>
+      <section>
+
+        <DrawHeader />
+        <section className="draw-wrapper">
+          <Tools />
+          <section className="draw-area" style={{ background: canvas.color }}>
+            <Stage
+            width={(window.innerWidth - 300) * canvas.zoom}
+            height={(window.innerHeight - 120) * canvas.zoom}
+            onMouseDown={handleDrawStart}
+            onTouchStart={handleDrawStart}
+            onMouseMove={handleDraw}
+            onTouchMove={handleDraw}
+            onMouseUp={handleDrawEnd}
+            scaleY={canvas.zoom}
+            scaleX={canvas.zoom}
+            opacity={canvas.opacity/100}
+            >
+            <Layer>
+              {lines.map((line, index) => (
+                <Line
+                  key={index}
+                  points={line.attrs.points}
+                  stroke="#000"
+                  strokeWidth={line.attrs.strokeWidth}
+                  globalCompositeOperation={ line.attrs.globalCompositeOperation }
+                />
+              ))}
+            </Layer>
+            </Stage>
+            
+          </section>
+          <VisualSettings />
         </section>
-        <VisualSettings />
+        
       </section>
-      
-    </section>
+    </HotKeys>
   );
 };
 
