@@ -39,13 +39,18 @@ body {
   align-items: center;
   border: none;
   cursor: pointer;
-  border-bottom: 1px solid #eee;
+  border-bottom: 1px solid #aaa;
   margin-right: 20px;
-  color: #eee;
+  color: #aaa;
 
   i {
    font-size: 1.3rem;
   }
+}
+
+.active-button {
+  color: #eee;
+  border-bottom: 1px solid #eee;
 }
 
 .draw-header {
@@ -68,10 +73,15 @@ body {
 .tools-button {
   background: transparent;
   border: 1px solid #000;
+  color: #999;
   height: 40px;
   i {
     font-size: 1.5rem;
   }
+}
+
+.active-tool {
+  color: #000;
 }
 
 .visual-settings {
