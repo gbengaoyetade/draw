@@ -41,9 +41,7 @@ const Draw = () => {
       <DrawHeader />
       <section className="draw-wrapper">
         <Tools />
-        <VisualSettings />
-      </section>
-      <Stage
+        <Stage
         width={(window.innerWidth - 190) * canvas.zoom}
         height={(window.innerHeight - 120) * canvas.zoom}
         onMouseDown={handleDrawStart}
@@ -53,6 +51,7 @@ const Draw = () => {
         onMouseUp={handleDrawEnd}
         scaleY={canvas.zoom}
         scaleX={canvas.zoom}
+        className='draw-area'
         >
         <Layer>
           {lines.map((line, index) => (
@@ -60,14 +59,17 @@ const Draw = () => {
               key={index}
               points={line.points}
               stroke="#df4b26"
-              strokeWidth={5}
+              strokeWidth={tool.size/10}
               globalCompositeOperation={
                 line.tool === 'eraser' ? 'destination-out' : 'source-over'
               }
             />
           ))}
         </Layer>
-      </Stage>
+        </Stage>
+        <VisualSettings />
+      </section>
+      
     </section>
   );
 };

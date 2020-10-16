@@ -1,10 +1,13 @@
 import React from 'react';
+import { BlockPicker } from 'react-color';
 
 
 const VisualSettings = () => {
   return (
     <section className="visual-settings">
-      VisualSettings
+      <BlockPicker />
+      <label>Opacity: </label>
+      <input type="text" />
     </section>
   );
 };

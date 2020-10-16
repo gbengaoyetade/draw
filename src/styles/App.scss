@@ -62,7 +62,7 @@ body {
 }
 
 .tools {
-  width: 40px;
+  width: 10%;
   height:88vh;
   overflow: hidden;
   display: flex;
@@ -85,7 +85,7 @@ body {
 }
 
 .visual-settings {
-  width: 150px;
+  width: 25%;
   height:88vh;
   background: #c4c4c4;
   padding: 10px;
@@ -95,4 +95,8 @@ body {
 .draw-wrapper {
   display: flex;
   justify-content: space-between;
+
+  .konvajs-content {
+    border: 1px solid #c4c4c4;
+  }
 }
